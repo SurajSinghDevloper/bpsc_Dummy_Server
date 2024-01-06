@@ -30,6 +30,11 @@ public class Users implements Serializable {
 	private String dob;
 	private LocalDateTime lastLoginTime;
 	private String password;
+	private String fname;
+	private String mname;
+	private String identification;
+	private String role;
+	
 
 //	Getter and Setters
 	public Long getUserId() {
@@ -110,6 +115,38 @@ public class Users implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
+	public String getIdentification() {
+		return identification;
+	}
+
+	public void setIdentification(String identification) {
+		this.identification = identification;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	
