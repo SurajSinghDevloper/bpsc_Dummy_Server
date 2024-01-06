@@ -27,6 +27,7 @@ public class Users implements Serializable {
 	private String emailID;
 	@Column(name = "mobileNo", nullable = false)
 	private String mobileNo;
+	private String dob;
 	private LocalDateTime lastLoginTime;
 	private String password;
 
@@ -85,6 +86,14 @@ public class Users implements Serializable {
 
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
+	}
+	
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
 
 	public LocalDateTime getLastLoginTime() {
