@@ -1,5 +1,7 @@
 package  com.bpsc.app.model;
 
+import java.sql.Time;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +15,7 @@ public class Otp {
 	private String otp;
 	private String email;
 	private String otpFlg;
+	private Time sendTime;
 	
 	
 	public long getOtpID() {
@@ -38,6 +41,12 @@ public class Otp {
 	}
 	public void setOtpFlg(String otpFlg) {
 		this.otpFlg = otpFlg;
+	}
+	public Time getSendTime() {
+		return sendTime;
+	}
+	public void setSendTime(Time sendTime) {
+		this.sendTime = sendTime;
 	}
 	
 	

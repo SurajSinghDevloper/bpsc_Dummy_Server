@@ -70,8 +70,8 @@ public class UsersController {
 			String token = jwtUtil.generateToken(loginCollege.getEmailID());
 
 			Users user = userService.getUserByEmail(userDetails.getUsername());
-
-			if (user != null) {
+			boolean varifiedUser = user.isEmailVarified();
+			if (user != null && varifiedUser ==true) {
 				// Create a response object with token and user details
 				lastLoginDetail(userDetails.getUsername());
 				

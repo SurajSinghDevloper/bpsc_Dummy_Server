@@ -23,6 +23,7 @@ public class Users implements Serializable {
 	private String middlename;
 	private String lastname;
 	private String age;
+	private String userName;
 	@Column(name = "emailID", nullable = false)
 	private String emailID;
 	@Column(name = "mobileNo", nullable = false)
@@ -34,6 +35,7 @@ public class Users implements Serializable {
 	private String mname;
 	private String identification;
 	private String role;
+	private boolean isEmailVarified;
 	
 
 //	Getter and Setters
@@ -75,6 +77,14 @@ public class Users implements Serializable {
 
 	public void setAge(String age) {
 		this.age = age;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getEmailID() {
@@ -147,6 +157,14 @@ public class Users implements Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public boolean isEmailVarified() {
+		return isEmailVarified;
+	}
+
+	public void setEmailVarified(boolean isEmailVarified) {
+		this.isEmailVarified = isEmailVarified;
 	}
 
 	

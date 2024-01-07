@@ -2,9 +2,13 @@ package  com.bpsc.app.serviceImpl;
 
 
 import java.util.List;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.bpsc.app.model.Otp;
 import  com.bpsc.app.model.Users;
+import com.bpsc.app.repository.OtpRepo;
 import  com.bpsc.app.repository.UsersRepo;
 import  com.bpsc.app.service.UsersService;
 import  com.bpsc.app.service.OtpService;
@@ -15,14 +19,36 @@ public class UsersServiceImpl implements UsersService{
 	@Autowired
 	private UsersRepo userRepo;
 	@Autowired
+	private OtpRepo otpRepo;
+	@Autowired
 	private OtpService otpService;
 
-
+    public static String generateUniqueUsername(String firstName) {
+        String uniqueID = UUID.randomUUID().toString().replace("-", "");
+        String usernamePrefix = firstName+"_";
+        // Taking the first 10 characters from the UUID
+        String uniquePortion = uniqueID.substring(0, 6); 
+        return usernamePrefix + uniquePortion;
+    }
 
 	@Override
 	public Users saveUserRegistration(Users model) {
 		// TODO Auto-generated method stub
-		return userRepo.save(model);
+		String userName = generateUniqueUsername(model.getFirstName());
+		model.setUserName(userName);
+		List<Otp> otps = otpRepo.getOtpByEmailOrderByDesc(model.getEmailID());
+	    
+	    if (otps != null && !otps.isEmpty()) {
+	        Otp otpEntity = otps.get(0);
+	        if(otpEntity != null) {
+	        	String flag =otpEntity.getOtpFlg();
+	        	if(flag.equals("1")) {
+	        		model.setEmailVarified(true);
+	        		return userRepo.save(model);
+	        	}
+	        }
+	    }
+		return null;
 	}
 
 	@Override
