@@ -25,9 +25,13 @@ public class Qualification {
 
     private String institutionName;
     
-    private int yearStarted;
+    private String yearStarted;
     
-    private int yearCompleted;
+    private String yearCompleted;
+    
+    private String specialization;
+
+    private String marksScored;
 
 	public Long getQualificationId() {
 		return qualificationId;
@@ -61,21 +65,39 @@ public class Qualification {
 		this.institutionName = institutionName;
 	}
 
-	public int getYearStarted() {
+	public String getYearStarted() {
 		return yearStarted;
 	}
 
-	public void setYearStarted(int yearStarted) {
+	public void setYearStarted(String yearStarted) {
 		this.yearStarted = yearStarted;
 	}
 
-	public int getYearCompleted() {
+	public String getYearCompleted() {
 		return yearCompleted;
 	}
 
-	public void setYearCompleted(int yearCompleted) {
+	public void setYearCompleted(String yearCompleted) {
 		this.yearCompleted = yearCompleted;
 	}
+
+	public String getSpecialization() {
+		return specialization;
+	}
+
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
+	}
+
+	public String getMarksScored() {
+		return marksScored;
+	}
+
+	public void setMarksScored(String marksScored) {
+		this.marksScored = marksScored;
+	}
     
+    
+	
     
 }
