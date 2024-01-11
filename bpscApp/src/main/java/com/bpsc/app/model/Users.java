@@ -35,7 +35,7 @@ public class Users implements Serializable {
 	private String mname;
 	private String identification;
 	private String role;
-	private boolean isEmailVarified;
+	private String isEmailVarified;
 	
 
 //	Getter and Setters
@@ -159,13 +159,15 @@ public class Users implements Serializable {
 		this.role = role;
 	}
 
-	public boolean isEmailVarified() {
+	public String getIsEmailVarified() {
 		return isEmailVarified;
 	}
 
-	public void setEmailVarified(boolean isEmailVarified) {
+	public void setIsEmailVarified(String isEmailVarified) {
 		this.isEmailVarified = isEmailVarified;
 	}
+
+	
 
 	
 	

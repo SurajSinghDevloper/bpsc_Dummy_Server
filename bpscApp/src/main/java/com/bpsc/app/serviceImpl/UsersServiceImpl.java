@@ -43,7 +43,7 @@ public class UsersServiceImpl implements UsersService{
 	        if(otpEntity != null) {
 	        	String flag =otpEntity.getOtpFlg();
 	        	if(flag.equals("1")) {
-	        		model.setEmailVarified(true);
+	        		model.setIsEmailVarified("true");
 	        		return userRepo.save(model);
 	        	}
 	        }

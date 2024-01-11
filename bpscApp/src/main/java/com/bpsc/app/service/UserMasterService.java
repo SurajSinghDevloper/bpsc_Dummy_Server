@@ -1,5 +1,7 @@
 package com.bpsc.app.service;
 
-public interface UserMasterService {
+import com.bpsc.app.model.UserMaster;
 
+public interface UserMasterService {
+	public UserMaster savePersonalInfo(UserMaster user);
 }

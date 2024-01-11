@@ -28,7 +28,7 @@ import  com.bpsc.app.service.UsersService;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1/auth/")
-public class UsersController {
+public class AuthController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
@@ -70,15 +70,15 @@ public class UsersController {
 			String token = jwtUtil.generateToken(loginCollege.getEmailID());
 
 			Users user = userService.getUserByEmail(userDetails.getUsername());
-			boolean varifiedUser = user.isEmailVarified();
-			if (user != null && varifiedUser ==true) {
+			String varifiedUser = user.getIsEmailVarified();
+			if (user != null && varifiedUser.equals("true")) {
 				// Create a response object with token and user details
 				lastLoginDetail(userDetails.getUsername());
 				
 				LoginResponse loginResponse = new LoginResponse(token, user);
 				return ResponseEntity.ok(loginResponse);
 			} else {
-				return ResponseEntity.notFound().build();
+				return ResponseEntity.badRequest().body("Not A Varified User Please Verify your email");
 			}
 
 		} catch (AuthenticationException e) {
