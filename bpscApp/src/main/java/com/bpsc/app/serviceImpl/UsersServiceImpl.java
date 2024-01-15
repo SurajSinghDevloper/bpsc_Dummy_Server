@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bpsc.app.model.Otp;
+import com.bpsc.app.model.UserMaster;
 import  com.bpsc.app.model.Users;
 import com.bpsc.app.repository.OtpRepo;
+import com.bpsc.app.repository.UserMasterRepo;
 import  com.bpsc.app.repository.UsersRepo;
 import  com.bpsc.app.service.UsersService;
 import  com.bpsc.app.service.OtpService;
@@ -22,6 +24,8 @@ public class UsersServiceImpl implements UsersService{
 	private OtpRepo otpRepo;
 	@Autowired
 	private OtpService otpService;
+	@Autowired
+	private UserMasterRepo userMasterRepo;
 
     public static String generateUniqueUsername(String firstName) {
         String uniqueID = UUID.randomUUID().toString().replace("-", "");
@@ -43,8 +47,21 @@ public class UsersServiceImpl implements UsersService{
 	        if(otpEntity != null) {
 	        	String flag =otpEntity.getOtpFlg();
 	        	if(flag.equals("1")) {
-	        		model.setIsEmailVarified("true");
-	        		return userRepo.save(model);
+	        		model.setIsEmailVarified("True");
+	        		Users newUser =userRepo.save(model);
+	        		if(newUser !=null) {
+	        			UserMaster usr = new UserMaster();
+	        			usr.setEmail(model.getEmailID());
+	        			usr.setFirstname(model.getFirstName());
+	        			usr.setMiddlename(model.getMiddlename());
+	        			usr.setLastname(model.getLastname());
+	        			usr.setDob(model.getDob());
+	        			usr.setUsername(model.getUserName());
+	        			usr.setUsers(model);
+	        			userMasterRepo.save(usr);
+	        			return userRepo.save(model);
+	        		}
+	        		return null;
 	        	}
 	        }
 	    }

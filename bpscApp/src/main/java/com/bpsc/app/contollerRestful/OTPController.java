@@ -22,22 +22,22 @@ public class OTPController {
 
 
 	@PostMapping("/send-otp")
-	public ResponseEntity<String> sendOtp(@RequestParam("email") String email) {
-	    String trimmedEmail = email.trim();
+	public ResponseEntity<String> sendOtp(@RequestParam("emailID") String emailID) {
+	    String trimmedEmail = emailID.trim();
 
 	    if (trimmedEmail.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
 	        String otp = otpService.generateOtp();
 
 	        if (otp != null) {
-	            String success = otpService.sendOtpEmail(email, otp);
+	            String success = otpService.sendOtpEmail(emailID, otp);
 
 	            if ("true".equals(success)) {
 	                return ResponseEntity.ok("OTP sent successfully");
 	            }else if("Email Already Register".equals(success)) {
-	                return ResponseEntity.status(500).body("Email Already Register");
+	                return ResponseEntity.status(HttpStatus.CONFLICT).body("Email Already Register");
 	            } 
 	            else {
-	                return ResponseEntity.status(500).body("Failed to send OTP");
+	                return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Failed to send OTP");
 	            }
 	        } else {
 	            return ResponseEntity.status(500).body("Failed to generate OTP");

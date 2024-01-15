@@ -43,35 +43,35 @@ public class AuthController {
 
 
 	@PostMapping("registration")
-	public ResponseEntity<?> saveaccountreport(@RequestBody Users clgRegistration) {
+	public ResponseEntity<?> saveaccountreport(@RequestBody Users registration) {
 
-		String email = clgRegistration.getEmailID();
+		String email = registration.getEmailID();
 		Users user = userService.getUserByEmail(email);
 		if (user != null) {
 			return ResponseEntity.status(409).body("Already Regester by this Details");
 		}
-		String hashedPassword = passwordEncoder.encode(clgRegistration.getPassword());
-		clgRegistration.setPassword(hashedPassword);
-		Users clgRegistrationObj = userService.saveUserRegistration(clgRegistration);
-		return ResponseEntity.status(201).body("Registered Successfully").ok(clgRegistrationObj);
+		String hashedPassword = passwordEncoder.encode(registration.getPassword());
+		registration.setPassword(hashedPassword);
+		Users clgRegistrationObj = userService.saveUserRegistration(registration);
+		return ResponseEntity.status(201).body("Registered Successfully").ok(registration);
 
 	}
 
 	@PostMapping("login")
-	public ResponseEntity<?> login(@RequestBody Users loginCollege) {
+	public ResponseEntity<?> login(@RequestBody Users login) {
 		try {
 			 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-					loginCollege.getEmailID(), loginCollege.getPassword()));
+					 login.getEmailID(), login.getPassword()));
 
 			// Load user details
-			UserDetails userDetails = userDetailsService.loadUserByUsername(loginCollege.getEmailID());
+			UserDetails userDetails = userDetailsService.loadUserByUsername(login.getEmailID());
 
 			// Generate JWT token
-			String token = jwtUtil.generateToken(loginCollege.getEmailID());
+			String token = jwtUtil.generateToken(login.getEmailID());
 
 			Users user = userService.getUserByEmail(userDetails.getUsername());
 			String varifiedUser = user.getIsEmailVarified();
-			if (user != null && varifiedUser.equals("true")) {
+			if (user != null && varifiedUser.equals("True")) {
 				// Create a response object with token and user details
 				lastLoginDetail(userDetails.getUsername());
 				

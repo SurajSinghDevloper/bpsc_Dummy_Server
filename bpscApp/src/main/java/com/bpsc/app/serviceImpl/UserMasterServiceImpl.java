@@ -2,9 +2,9 @@ package com.bpsc.app.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.bpsc.app.model.UserMaster;
 import com.bpsc.app.model.Users;
+import com.bpsc.app.repository.OtpRepo;
 import com.bpsc.app.repository.UserMasterRepo;
 import com.bpsc.app.repository.UsersRepo;
 import com.bpsc.app.service.UserMasterService;
@@ -16,15 +16,15 @@ public class UserMasterServiceImpl implements UserMasterService {
 	UserMasterRepo userMasterRepo;
 	@Autowired
 	UsersRepo usersRepo;
+	@Autowired
+	OtpRepo otpRepo;
 
-	public UserMaster savePersonalInfo(UserMaster user) {
-		UserMaster existingUserDetails = userMasterRepo.findByEmail(user.getEmail());
-		if (existingUserDetails == null) {
-			UserMaster newUser = userMasterRepo.save(user);
-			if (newUser != null) {
-				return newUser;
-			}
-		} else if (existingUserDetails != null) {
+	@Override
+	public UserMaster savePersonalInfo(UserMaster user, String email) {
+		System.out.println(user.getEmail());
+		UserMaster existingUserDetails = userMasterRepo.findByEmail(email);
+
+		if (existingUserDetails != null) {
 			existingUserDetails.setFirstname(user.getFirstname());
 			existingUserDetails.setMiddlename(user.getMiddlename());
 			existingUserDetails.setLastname(user.getLastname());
@@ -49,23 +49,39 @@ public class UserMasterServiceImpl implements UserMasterService {
 			existingUserDetails.setpLanguage(user.getpLanguage());
 			existingUserDetails.setLocationType(user.getLocationType());
 			existingUserDetails.setCategory(user.getCategory());
+			existingUserDetails.setPermanentAddress(user.getPermanentAddress());
 			UserMaster updateUser = userMasterRepo.save(existingUserDetails);
+
 			if (updateUser != null) {
-				Users usr = usersRepo.findByUserEmail(user.getEmail());
-				usr.setFirstName(user.getFirstname());
-				usr.setMiddlename(user.getMiddlename());
-				usr.setLastname(user.getLastname());
-				usr.setMobileNo(user.getMobile());
-				usr.setFname(user.getFname());
-				usr.setMname(user.getMname());
-				usr.setIdentification(user.getIdentification());
-				Users updateUsr = usersRepo.save(usr);
+				Users usrs = usersRepo.findByUserEmail(updateUser.getEmail());
+				usrs.setFirstName(user.getFirstname());
+				usrs.setMiddlename(user.getMiddlename());
+				usrs.setLastname(user.getLastname());
+				usrs.setFname(user.getFname());
+				usrs.setMname(user.getMname());
+				usrs.setIdentification(user.getIdentification());
+
+				Users updateUsr = usersRepo.save(usrs);
+
 				if (updateUsr != null) {
 					return updateUser;
 				}
 				return null;
 			}
+		} else {
+			return null;
+		}
+
+		return null;
+	}
+
+	@Override
+	public UserMaster findUserByEmail(String email) {
+		UserMaster foundUser = userMasterRepo.findByEmail(email);
+		if (foundUser != null) {
+			return foundUser;
 		}
 		return null;
 	}
+
 }

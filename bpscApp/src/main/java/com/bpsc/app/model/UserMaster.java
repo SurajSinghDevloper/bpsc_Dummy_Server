@@ -1,15 +1,23 @@
 package com.bpsc.app.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class UserMaster {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long slno;
+    
+    private String username;
+    @OneToOne
+    @JoinColumn(name = "username", referencedColumnName = "userName", insertable = false, updatable = false)
+    private Users users;
 	private String firstname;
 	private String middlename;
 	private String lastname;
@@ -37,13 +45,32 @@ public class UserMaster {
 	private String pLanguage;
 	private String locationType;
 	private String appliedFor;
+	private String permanentAddress;
 
-	public Long getUserName() {
-		return userName;
+
+
+	public Long getSlno() {
+		return slno;
 	}
 
-	public void setUserName(Long userName) {
-		this.userName = userName;
+	public void setSlno(Long slno) {
+		this.slno = slno;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	public String getFirstname() {
@@ -261,5 +288,14 @@ public class UserMaster {
 	public void setLocationType(String locationType) {
 		this.locationType = locationType;
 	}
+
+	public String getPermanentAddress() {
+		return permanentAddress;
+	}
+
+	public void setPermanentAddress(String permanentAddress) {
+		this.permanentAddress = permanentAddress;
+	}
+	
 
 }
