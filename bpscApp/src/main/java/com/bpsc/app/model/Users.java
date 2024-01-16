@@ -23,6 +23,7 @@ public class Users implements Serializable {
 	private String middlename;
 	private String lastname;
 	private String age;
+	@Column(name = "userName", unique = true)
 	private String userName;
 	@Column(name = "emailID", nullable = false)
 	private String emailID;

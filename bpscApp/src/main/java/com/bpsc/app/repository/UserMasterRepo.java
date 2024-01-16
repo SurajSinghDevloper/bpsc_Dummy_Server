@@ -9,4 +9,7 @@ import com.bpsc.app.model.UserMaster;
 public interface UserMasterRepo extends JpaRepository<UserMaster, Long>{
 	@Query("SELECT u FROM UserMaster u WHERE u.email = :email")
 	public UserMaster findByEmail(@Param("email") String email);
+	
+	@Query("SELECT u FROM UserMaster u WHERE u.username = :username")
+	public UserMaster findByUsername(@Param("username") String username);
 }

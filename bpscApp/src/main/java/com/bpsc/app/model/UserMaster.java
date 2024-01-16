@@ -1,22 +1,30 @@
 package com.bpsc.app.model;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class UserMaster {
-    @Id
+public class UserMaster implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long slno;
-    
+    @Column(unique = true)
     private String username;
     @OneToOne
-    @JoinColumn(name = "username", referencedColumnName = "userName", insertable = false, updatable = false)
+//    @JoinColumn(referencedColumnName = "userName", insertable = false, updatable = false)
     private Users users;
 	private String firstname;
 	private String middlename;
@@ -46,7 +54,8 @@ public class UserMaster {
 	private String locationType;
 	private String appliedFor;
 	private String permanentAddress;
-
+	@OneToMany(mappedBy = "userMaster")
+    private List<QualificationType> qualificationType;
 
 
 	public Long getSlno() {
@@ -296,6 +305,16 @@ public class UserMaster {
 	public void setPermanentAddress(String permanentAddress) {
 		this.permanentAddress = permanentAddress;
 	}
-	
 
+	public List<QualificationType> getQualificationType() {
+		return qualificationType;
+	}
+
+	public void setQualificationType(List<QualificationType> qualificationType) {
+		this.qualificationType = qualificationType;
+	}
+
+	
+	
+	
 }

@@ -57,9 +57,9 @@ public class UsersServiceImpl implements UsersService{
 	        			usr.setLastname(model.getLastname());
 	        			usr.setDob(model.getDob());
 	        			usr.setUsername(model.getUserName());
-	        			usr.setUsers(model);
+	        			usr.setUsers(newUser);
 	        			userMasterRepo.save(usr);
-	        			return userRepo.save(model);
+	        			return model;
 	        		}
 	        		return null;
 	        	}

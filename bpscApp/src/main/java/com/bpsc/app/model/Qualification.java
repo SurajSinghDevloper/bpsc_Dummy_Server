@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,19 +20,19 @@ public class Qualification {
     @JoinColumn(name = "user_id")
     private Users users;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "qualification_type_id")
     private QualificationType qualificationType;
+    
+    private String tenthDoc;
 
-    private String institutionName;
+    private String twelethDoc;
     
-    private String yearStarted;
+    private String ugDoc;
     
-    private String yearCompleted;
+    private String pgDoc;
     
-    private String specialization;
-
-    private String marksScored;
+    private String otherDoc;
 
 	public Long getQualificationId() {
 		return qualificationId;
@@ -57,47 +58,54 @@ public class Qualification {
 		this.qualificationType = qualificationType;
 	}
 
-	public String getInstitutionName() {
-		return institutionName;
+	public String getTenthDoc() {
+		return tenthDoc;
 	}
 
-	public void setInstitutionName(String institutionName) {
-		this.institutionName = institutionName;
+	public void setTenthDoc(String tenthDoc) {
+		this.tenthDoc = tenthDoc;
 	}
 
-	public String getYearStarted() {
-		return yearStarted;
+	public String getTwelethDoc() {
+		return twelethDoc;
 	}
 
-	public void setYearStarted(String yearStarted) {
-		this.yearStarted = yearStarted;
+	public void setTwelethDoc(String twelethDoc) {
+		this.twelethDoc = twelethDoc;
 	}
 
-	public String getYearCompleted() {
-		return yearCompleted;
+	public String getUgDoc() {
+		return ugDoc;
 	}
 
-	public void setYearCompleted(String yearCompleted) {
-		this.yearCompleted = yearCompleted;
+	public void setUgDoc(String ugDoc) {
+		this.ugDoc = ugDoc;
 	}
 
-	public String getSpecialization() {
-		return specialization;
+	public String getPgDoc() {
+		return pgDoc;
 	}
 
-	public void setSpecialization(String specialization) {
-		this.specialization = specialization;
+	public void setPgDoc(String pgDoc) {
+		this.pgDoc = pgDoc;
 	}
 
-	public String getMarksScored() {
-		return marksScored;
+	public String getOtherDoc() {
+		return otherDoc;
 	}
 
-	public void setMarksScored(String marksScored) {
-		this.marksScored = marksScored;
+	public void setOtherDoc(String otherDoc) {
+		this.otherDoc = otherDoc;
 	}
     
     
+    
+    
+
+    
+    
+
+	
 	
     
 }
