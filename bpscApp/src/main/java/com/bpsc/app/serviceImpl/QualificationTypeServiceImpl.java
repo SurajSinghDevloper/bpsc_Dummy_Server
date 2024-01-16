@@ -28,7 +28,14 @@ public class QualificationTypeServiceImpl implements QualificationTypeService{
 	    }
 	 	@Override
 	    public QualificationType saveQualificationType(QualificationType qualificationType) {
-	        return qualificationTypeRepository.save(qualificationType);
+	 		QualificationType qualification = new QualificationType();
+	 		qualification.setSchool(qualificationType.getSchool());
+	 		qualification.setName(qualificationType.getName());
+	 		qualification.setMarks(qualificationType.getMarks());
+	 		qualification.setSpecialization(qualificationType.getSpecialization());
+	 		qualification.setYear(qualificationType.getYear());
+	 		qualification.setUserMaster(qualificationType.getUserMaster());
+	        return qualificationTypeRepository.save(qualification);
 	    }
 	 	@Override
 	    public void deleteQualificationType(long qualificationId) {

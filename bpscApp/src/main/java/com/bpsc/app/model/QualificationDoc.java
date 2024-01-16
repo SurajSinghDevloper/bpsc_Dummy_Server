@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Qualifications")
-public class Qualification {
+public class QualificationDoc {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qualificationId;

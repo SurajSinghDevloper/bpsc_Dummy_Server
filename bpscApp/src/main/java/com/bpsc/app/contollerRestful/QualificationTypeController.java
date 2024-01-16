@@ -41,35 +41,57 @@ public class QualificationTypeController {
         return new ResponseEntity<>(qualificationType, HttpStatus.OK);
     }
 
-//    @PostMapping("/qualification")
-//    public ResponseEntity<QualificationType> saveQualificationType(@RequestBody QualificationType qualificationType) {
-//        QualificationType savedQualificationType = qualificationTypeService.saveQualificationType(qualificationType);
-//        return new ResponseEntity<>(savedQualificationType, HttpStatus.CREATED);
-//    }
+    
+//   @PostMapping("/qualification")
+//   public ResponseEntity<?> saveQualifications(@RequestBody List<Map<String, Object>> qualificationsList,@RequestParam("username") String username) {
+//       try {
+//       	UserMaster userMaster = umr.findByUsername(username);
+//       	if(userMaster ==null) {
+//       		return new  ResponseEntity<>("User Data Not Found",HttpStatus.NOT_FOUND);
+//       	}
+//           for (Map<String, Object> qualificationData : qualificationsList) {
+//               String qualificationName = (String) qualificationData.get("name");
+//               String specialization = (String) qualificationData.get("specialization");
+//               String institutionName = (String) qualificationData.get("school");
+//               String marks = (String) qualificationData.get("marks");
+//               String yearCompleted = (String) qualificationData.get("year");
+//
+//               QualificationType qualificationType = new QualificationType(qualificationName, specialization, institutionName, marks, yearCompleted, userMaster);
+//               qualificationTypeService.saveQualificationType(qualificationType);
+//           }
+//
+//           return new  ResponseEntity<>("Data Saved Successfully",HttpStatus.CREATED);
+//       } catch (Exception e) {
+//           return new ResponseEntity<>("Error Occured while saving data",HttpStatus.INTERNAL_SERVER_ERROR);
+//       }
+//   }
+
     
     @PostMapping("/qualification")
-    public ResponseEntity<?> saveQualifications(@RequestBody List<Map<String, Object>> qualificationsList,@RequestParam("username") String username) {
+    public ResponseEntity<?> saveQualifications(@RequestBody List<QualificationType> qualificationsList, @RequestParam("username") String username) {
         try {
-        	UserMaster userMaster = umr.findByUsername(username);
-        	if(userMaster ==null) {
-        		return new  ResponseEntity<>("User Data Not Found",HttpStatus.NOT_FOUND);
-        	}
-            for (Map<String, Object> qualificationData : qualificationsList) {
-                String qualificationName = (String) qualificationData.get("name");
-                String specialization = (String) qualificationData.get("specialization");
-                String institutionName = (String) qualificationData.get("school");
-                String marks = (String) qualificationData.get("marks");
-                String yearCompleted = (String) qualificationData.get("year");
+            UserMaster userMaster = umr.findByUsername(username);
+            if (userMaster == null) {
+                return new ResponseEntity<>("User Data Not Found", HttpStatus.NOT_FOUND);
+            }
+
+            for (QualificationType qualificationData : qualificationsList) {
+                String qualificationName = qualificationData.getName();
+                String specialization = qualificationData.getSpecialization();
+                String institutionName = qualificationData.getSchool();
+                String marks = qualificationData.getMarks();
+                String yearCompleted = qualificationData.getYear();
 
                 QualificationType qualificationType = new QualificationType(qualificationName, specialization, institutionName, marks, yearCompleted, userMaster);
                 qualificationTypeService.saveQualificationType(qualificationType);
             }
 
-            return new  ResponseEntity<>("Data Saved Successfully",HttpStatus.CREATED);
+            return new ResponseEntity<>("Data Saved Successfully", HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error Occured while saving data",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error Occurred while saving data", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 
 

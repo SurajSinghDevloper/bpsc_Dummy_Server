@@ -18,17 +18,13 @@ public class QualificationType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long qualificationId;
 
+    private String name;
+    private String specialization;
+    private String school;
+    private String marks;
+    private String year;
 	
-
-	private String qualificationName;
-
-	private String institutionName;
-
-	private String yearCompleted;
-
-	private String specialization;
-
-	private String marksScored;
+	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "username",referencedColumnName = "username")
@@ -37,17 +33,21 @@ public class QualificationType {
 	public QualificationType() {
 		// Default constructor logic, if needed
 	}
-
-	public QualificationType(String qualificationName, String institutionName, String yearCompleted,
-			String specialization, String marksScored, UserMaster userMaster) {
+	
+	
+	
+	public QualificationType(String name, String specialization, String school, String marks, String year,
+			UserMaster userMaster) {
 		super();
-		this.qualificationName = qualificationName;
-		this.institutionName = institutionName;
-		this.yearCompleted = yearCompleted;
+		this.name = name;
 		this.specialization = specialization;
-		this.marksScored = marksScored;
+		this.school = school;
+		this.marks = marks;
+		this.year = year;
 		this.userMaster = userMaster;
 	}
+
+
 
 	public long getQualificationId() {
 		return qualificationId;
@@ -57,28 +57,12 @@ public class QualificationType {
 		this.qualificationId = qualificationId;
 	}
 
-	public String getQualificationName() {
-		return qualificationName;
+	public String getName() {
+		return name;
 	}
 
-	public void setQualificationName(String qualificationName) {
-		this.qualificationName = qualificationName;
-	}
-
-	public String getInstitutionName() {
-		return institutionName;
-	}
-
-	public void setInstitutionName(String institutionName) {
-		this.institutionName = institutionName;
-	}
-
-	public String getYearCompleted() {
-		return yearCompleted;
-	}
-
-	public void setYearCompleted(String yearCompleted) {
-		this.yearCompleted = yearCompleted;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getSpecialization() {
@@ -89,12 +73,28 @@ public class QualificationType {
 		this.specialization = specialization;
 	}
 
-	public String getMarksScored() {
-		return marksScored;
+	public String getSchool() {
+		return school;
 	}
 
-	public void setMarksScored(String marksScored) {
-		this.marksScored = marksScored;
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public String getMarks() {
+		return marks;
+	}
+
+	public void setMarks(String marks) {
+		this.marks = marks;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
 	}
 
 	public UserMaster getUserMaster() {
@@ -104,5 +104,8 @@ public class QualificationType {
 	public void setUserMaster(UserMaster userMaster) {
 		this.userMaster = userMaster;
 	}
+
+
+	
 
 }
