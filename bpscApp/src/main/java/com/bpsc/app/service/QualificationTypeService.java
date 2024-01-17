@@ -12,4 +12,6 @@ public interface QualificationTypeService {
 	public QualificationType saveQualificationType(QualificationType qualificationType);
 	
 	 public void deleteQualificationType(long qualificationId);
+	 
+	 public String save_OR_Update_Qualification(List<QualificationType> qualificationsList,String username);
 }

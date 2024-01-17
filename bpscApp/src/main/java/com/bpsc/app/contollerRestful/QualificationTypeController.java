@@ -1,7 +1,6 @@
 package com.bpsc.app.contollerRestful;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bpsc.app.model.QualificationType;
-import com.bpsc.app.model.UserMaster;
 import com.bpsc.app.repository.UserMasterRepo;
 import com.bpsc.app.service.QualificationTypeService;
 
@@ -69,27 +67,17 @@ public class QualificationTypeController {
     
     @PostMapping("/qualification")
     public ResponseEntity<?> saveQualifications(@RequestBody List<QualificationType> qualificationsList, @RequestParam("username") String username) {
-        try {
-            UserMaster userMaster = umr.findByUsername(username);
-            if (userMaster == null) {
-                return new ResponseEntity<>("User Data Not Found", HttpStatus.NOT_FOUND);
+            String  saveDetails = qualificationTypeService.save_OR_Update_Qualification(qualificationsList, username);
+            if("SAVED".equals(saveDetails)) {
+            	return new ResponseEntity<>("Data Saved Successfully", HttpStatus.CREATED);
+            }else if("WENT_WRONG".equals(saveDetails)) {
+            	return new ResponseEntity<>("Error While Saving Data", HttpStatus.INTERNAL_SERVER_ERROR);
+            }else if("UPDATED".equals(saveDetails)) {
+            	return new ResponseEntity<>("User Details Updated", HttpStatus.OK);
             }
-
-            for (QualificationType qualificationData : qualificationsList) {
-                String qualificationName = qualificationData.getName();
-                String specialization = qualificationData.getSpecialization();
-                String institutionName = qualificationData.getSchool();
-                String marks = qualificationData.getMarks();
-                String yearCompleted = qualificationData.getYear();
-
-                QualificationType qualificationType = new QualificationType(qualificationName, specialization, institutionName, marks, yearCompleted, userMaster);
-                qualificationTypeService.saveQualificationType(qualificationType);
-            }
-
-            return new ResponseEntity<>("Data Saved Successfully", HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error Occurred while saving data", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+            	 return new ResponseEntity<>("User Data Not Found", HttpStatus.NOT_FOUND);
+            
+        
     }
 
 
