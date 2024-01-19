@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Qualifications")
+@Table(name = "QualificationsDoc")
 public class QualificationDoc {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,8 @@ public class QualificationDoc {
     private String pgDoc;
     
     private String otherDoc;
+    
+    private String userName;
 
 	public Long getQualificationId() {
 		return qualificationId;
@@ -96,6 +98,14 @@ public class QualificationDoc {
 
 	public void setOtherDoc(String otherDoc) {
 		this.otherDoc = otherDoc;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
     
     

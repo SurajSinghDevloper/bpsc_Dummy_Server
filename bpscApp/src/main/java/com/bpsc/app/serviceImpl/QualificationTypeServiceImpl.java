@@ -1,5 +1,6 @@
 package com.bpsc.app.serviceImpl;
 
+import com.bpsc.app.repository.QualificationDocRepository;
 import com.bpsc.app.repository.QualificationTypeRepository;
 import com.bpsc.app.repository.UserMasterRepo;
 import com.bpsc.app.service.QualificationTypeService;
@@ -22,6 +23,8 @@ public class QualificationTypeServiceImpl implements QualificationTypeService {
 	private QualificationTypeRepository qualificationTypeRepository;
 	@Autowired
 	UserMasterRepo umr;
+	@Autowired
+	private QualificationDocRepository qdr;
 
 	@Override
 	public List<QualificationType> getAllQualificationTypes() {
@@ -51,11 +54,11 @@ public class QualificationTypeServiceImpl implements QualificationTypeService {
 	public String save_OR_Update_Qualification(List<QualificationType> qualificationsList, String username) {
 		UserMaster userMaster = umr.findByUsername(username);
 		List<QualificationType> existingQualifications = qualificationTypeRepository.findByUserMaster(userMaster);
-
+		QualificationType qualificationType = null;
 		if (existingQualifications == null || existingQualifications.isEmpty()) {
 			// Save new qualifications
 			for (QualificationType qualificationData : qualificationsList) {
-				QualificationType qualificationType = new QualificationType(
+						qualificationType = new QualificationType(
 						qualificationData.getName(),
 						qualificationData.getSpecialization(),
 						qualificationData.getSchool(),
@@ -63,6 +66,13 @@ public class QualificationTypeServiceImpl implements QualificationTypeService {
 						qualificationData.getYear(),
 						userMaster);
 				qualificationTypeRepository.save(qualificationType);
+			}
+			if(qualificationType != null) {
+				QualificationDoc doc = new QualificationDoc();
+				doc.setQualificationType(qualificationType);
+				doc.setUserName(username);
+				qdr.save(doc);
+				
 			}
 			return "SAVED";
 		} else {

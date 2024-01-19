@@ -11,5 +11,8 @@ public interface QualificationTypeRepository extends JpaRepository<Qualification
     // Custom queries if needed
 
 	List<QualificationType> findByUserMaster(UserMaster userMaster);
+	
+	
+	
 
 }

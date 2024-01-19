@@ -54,6 +54,12 @@ public class UserMaster implements Serializable{
 	private String locationType;
 	private String appliedFor;
 	private String permanentAddress;
+	private String aadharDoc;
+	private String domicileDoc;
+	private String incomeProfDoc;
+	private String castProfDoc;
+	private String birthDoc;
+	private String OtherDoc;
 	@OneToMany(mappedBy = "userMaster")
     private List<QualificationType> qualificationType;
 
@@ -314,6 +320,55 @@ public class UserMaster implements Serializable{
 		this.qualificationType = qualificationType;
 	}
 
+	public String getAadharDoc() {
+		return aadharDoc;
+	}
+
+	public void setAadharDoc(String aadharDoc) {
+		this.aadharDoc = aadharDoc;
+	}
+
+	public String getDomicileDoc() {
+		return domicileDoc;
+	}
+
+	public void setDomicileDoc(String domicileDoc) {
+		this.domicileDoc = domicileDoc;
+	}
+
+	public String getIncomeProfDoc() {
+		return incomeProfDoc;
+	}
+
+	public void setIncomeProfDoc(String incomeProfDoc) {
+		this.incomeProfDoc = incomeProfDoc;
+	}
+
+	public String getCastProfDoc() {
+		return castProfDoc;
+	}
+
+	public void setCastProfDoc(String castProfDoc) {
+		this.castProfDoc = castProfDoc;
+	}
+
+	public String getBirthDoc() {
+		return birthDoc;
+	}
+
+	public void setBirthDoc(String birthDoc) {
+		this.birthDoc = birthDoc;
+	}
+
+	public String getOtherDoc() {
+		return OtherDoc;
+	}
+
+	public void setOtherDoc(String otherDoc) {
+		OtherDoc = otherDoc;
+	}
+
+	
 	
 	
 	
