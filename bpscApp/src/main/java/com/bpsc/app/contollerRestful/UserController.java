@@ -63,7 +63,27 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to save qualification document.");
             }
 
-            return ResponseEntity.ok("Qualification document saved successfully.");
+            return ResponseEntity.ok(success);
+        } catch (Exception e) {
+            // Log the exception for debugging purposes
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
+        }
+    }
+	
+	@PostMapping("/remove-file")
+    public ResponseEntity<String> deleteQualificationDocument(
+            @RequestParam("docId") Long docId,
+            @RequestParam("documentType") String documentType,
+            @RequestParam("filename") String filename) {
+        try {
+            String success = userMasterService.delteCandidateDocument(docId, filename, documentType);
+
+            if ("NULL".equals(success) || "WENT_WRONG".equals(success)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to Delete qualification document.");
+            }
+
+            return ResponseEntity.ok("Qualification document Delete successfully.");
         } catch (Exception e) {
             // Log the exception for debugging purposes
             e.printStackTrace();

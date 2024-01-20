@@ -8,4 +8,5 @@ public interface UserMasterService {
 	public UserMaster savePersonalInfo(UserMaster user,String email);
 	public UserMaster findUserByEmail(String email);
 	public String saveCandidateDocument(MultipartFile pdf, String documentType, String userName);
+	public String delteCandidateDocument(long qualificationId,  String filename,String documentType);
 }

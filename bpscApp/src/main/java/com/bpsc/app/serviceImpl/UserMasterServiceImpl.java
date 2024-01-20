@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bpsc.app.model.QualificationDoc;
 import com.bpsc.app.model.UserMaster;
 import com.bpsc.app.model.Users;
 import com.bpsc.app.repository.OtpRepo;
@@ -142,5 +143,46 @@ public class UserMasterServiceImpl implements UserMasterService {
 		}
 		return null;
 	}
+	
+	 @Override
+	    public String delteCandidateDocument(long qualificationId,  String filename,String documentType) {
+	        UserMaster userMaster = userMasterRepo.findById(qualificationId).orElse(null);
+
+	        if (userMaster != null) {
+	           fileService.deleteFile(filename);
+
+	            switch (documentType) {
+	                case "Photo Of Candidate":
+	                	userMaster.setProfileImage("");
+	                    break;
+	                case "Signature Of Candidate":
+	                	userMaster.setSignature("");
+	                    break;
+	                case "Aadhar Card":
+	                	userMaster.setAadharDoc("");
+	                    break;
+	                case "Domicile Certificate":
+	                	userMaster.setDomicileDoc("");
+	                    break;
+	                case "Cast Certificate":
+	                	userMaster.setCastProfDoc("");
+	                    break;
+	                case "Birt Certificate":
+	                	userMaster.setBirthDoc("");
+	                    break;
+	              
+	                case "Other Relivant Doc":
+	                	userMaster.setOtherDoc("");
+	                    break;
+	                default:
+	                    // Handle unexpected document type
+	                    return "NULL";
+	            }
+	            userMasterRepo.save(userMaster);
+	            return "DELTED";
+	        }
+
+	        return "WENT_WRONG";
+	    }
 
 }

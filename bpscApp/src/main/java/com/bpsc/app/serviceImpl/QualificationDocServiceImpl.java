@@ -36,23 +36,23 @@ public class QualificationDocServiceImpl implements QualificationDocService{
             QualificationDoc qualificationDoc = qfdr.findByUserName(userName);
             QualificationDoc savedDoc;
             switch (documentType) {
-                case "10":
+                case "tenthDoc":
                     qualificationDoc.setTenthDoc(fileName);
                     savedDoc = qfdr.save(qualificationDoc);
                     break;
-                case "12":
+                case "twelethDoc":
                     qualificationDoc.setTwelethDoc(fileName);
                     savedDoc = qfdr.save(qualificationDoc);
                     break;
-                case "UG":
+                case "ugDoc":
                     qualificationDoc.setUgDoc(fileName);
                     savedDoc = qfdr.save(qualificationDoc);
                     break;
-                case "PG":
+                case "pgDoc":
                     qualificationDoc.setPgDoc(fileName);
                     savedDoc = qfdr.save(qualificationDoc);
                     break;
-                case "OTHER":
+                case "otherDoc":
                     qualificationDoc.setOtherDoc(fileName);
                     savedDoc = qfdr.save(qualificationDoc);
                     break;
@@ -83,16 +83,16 @@ public class QualificationDocServiceImpl implements QualificationDocService{
            fileService.deleteFile(filename);
 
             switch (documentType) {
-                case "10":
+                case "tenthDoc":
                     existingQualificationDoc.setTenthDoc("");
                     break;
-                case "12":
+                case "twelethDoc":
                     existingQualificationDoc.setTwelethDoc("");
                     break;
-                case "UG":
+                case "ugDoc":
                     existingQualificationDoc.setUgDoc("");
                     break;
-                case "PG":
+                case "pgDoc":
                     existingQualificationDoc.setPgDoc("");
                     break;
                 case "otherDoc":
