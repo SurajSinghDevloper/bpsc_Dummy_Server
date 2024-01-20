@@ -2,22 +2,27 @@ package com.bpsc.app.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bpsc.app.model.UserMaster;
 import com.bpsc.app.model.Users;
 import com.bpsc.app.repository.OtpRepo;
 import com.bpsc.app.repository.UserMasterRepo;
 import com.bpsc.app.repository.UsersRepo;
 import com.bpsc.app.service.UserMasterService;
+import com.bpsc.app.util.FileUpload;
 
 @Service
 public class UserMasterServiceImpl implements UserMasterService {
 
 	@Autowired
-	UserMasterRepo userMasterRepo;
+	private UserMasterRepo userMasterRepo;
 	@Autowired
-	UsersRepo usersRepo;
+	private UsersRepo usersRepo;
 	@Autowired
-	OtpRepo otpRepo;
+	private OtpRepo otpRepo;
+	@Autowired
+    private FileUpload fileService;
 
 	@Override
 	public UserMaster savePersonalInfo(UserMaster user, String email) {
@@ -80,6 +85,60 @@ public class UserMasterServiceImpl implements UserMasterService {
 		UserMaster foundUser = userMasterRepo.findByEmail(email);
 		if (foundUser != null) {
 			return foundUser;
+		}
+		return null;
+	}
+	
+	@Override
+	public String saveCandidateDocument(MultipartFile pdf, String documentType, String userName) {
+		String fileName = fileService.uploadFile(pdf, userName, documentType);
+		try {
+			UserMaster userDoc = userMasterRepo.findByUsername(userName);
+			UserMaster saveDoc;
+			switch (documentType) {
+			case "Photo Of Candidate":
+				userDoc.setProfileImage(fileName);
+				saveDoc = userMasterRepo.save(userDoc);
+				break;
+			case "Signature Of Candidate":
+				userDoc.setSignature(fileName);
+				saveDoc = userMasterRepo.save(userDoc);
+				break;
+			case "Aadhar Card":
+				userDoc.setAadharDoc(fileName);
+				saveDoc = userMasterRepo.save(userDoc);
+				break;
+			case "Domicile Certificate":
+				userDoc.setDomicileDoc(fileName);
+				saveDoc = userMasterRepo.save(userDoc);
+				break;
+			case "Income Certificate":
+				userDoc.setIncomeProfDoc(fileName);
+				saveDoc = userMasterRepo.save(userDoc);
+				break;
+			case "Cast Certificate":
+				userDoc.setCastProfDoc(fileName);
+				saveDoc = userMasterRepo.save(userDoc);
+				break;
+			case "Birt Certificate":
+				userDoc.setBirthDoc(fileName);
+				saveDoc = userMasterRepo.save(userDoc);
+				break;
+			case "Other Relivant Doc":
+				userDoc.setOtherDoc(fileName);
+				saveDoc = userMasterRepo.save(userDoc);
+				break;
+
+			default:
+				throw new IllegalArgumentException("Invalid document type: " + documentType);
+			}
+			 if(saveDoc != null) {
+            	 return fileName;
+            }
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("Unexpected error while saving user document.");
 		}
 		return null;
 	}

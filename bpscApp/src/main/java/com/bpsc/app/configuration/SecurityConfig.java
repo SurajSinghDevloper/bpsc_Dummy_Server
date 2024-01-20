@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	         .csrf().disable()
 	            .authorizeRequests()
 	                .antMatchers("/api/v1/auth/**").permitAll() // Allow authentication endpoints
-	                .antMatchers("/files/view/**").permitAll()
+	                .antMatchers("/api/files/**").permitAll()
 	                .antMatchers("/otp/**").permitAll()
 	                .antMatchers("/prepareiiqa/**").permitAll()
 	                .anyRequest().authenticated() // Require authentication for other endpoints

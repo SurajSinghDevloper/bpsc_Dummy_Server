@@ -9,19 +9,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "QualificationsDoc")
 public class QualificationDoc {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qualificationId;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users users;
-
+    
     @OneToOne
-    @JoinColumn(name = "qualification_type_id")
+    @JoinColumn(name = "qualificationId")
     private QualificationType qualificationType;
     
     private String tenthDoc;
@@ -35,6 +33,13 @@ public class QualificationDoc {
     private String otherDoc;
     
     private String userName;
+    
+    @JsonIgnore
+    @OneToOne(mappedBy = "qualificationDoc")// Specify the actual column name used in the database
+    private UserMaster userMaster;
+    
+    
+    
 
 	public Long getQualificationId() {
 		return qualificationId;
@@ -42,14 +47,6 @@ public class QualificationDoc {
 
 	public void setQualificationId(Long qualificationId) {
 		this.qualificationId = qualificationId;
-	}
-
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
 	}
 
 	public QualificationType getQualificationType() {
@@ -106,6 +103,14 @@ public class QualificationDoc {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public UserMaster getUserMaster() {
+		return userMaster;
+	}
+
+	public void setUserMaster(UserMaster userMaster) {
+		this.userMaster = userMaster;
 	}
     
     

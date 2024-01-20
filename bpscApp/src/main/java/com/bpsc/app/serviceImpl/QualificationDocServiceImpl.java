@@ -52,7 +52,7 @@ public class QualificationDocServiceImpl implements QualificationDocService{
                     qualificationDoc.setPgDoc(fileName);
                     savedDoc = qfdr.save(qualificationDoc);
                     break;
-                case "otherDoc":
+                case "OTHER":
                     qualificationDoc.setOtherDoc(fileName);
                     savedDoc = qfdr.save(qualificationDoc);
                     break;

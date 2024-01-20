@@ -70,6 +70,7 @@ public class QualificationTypeServiceImpl implements QualificationTypeService {
 			if(qualificationType != null) {
 				QualificationDoc doc = new QualificationDoc();
 				doc.setQualificationType(qualificationType);
+				doc.setUserMaster(userMaster);
 				doc.setUserName(username);
 				qdr.save(doc);
 				

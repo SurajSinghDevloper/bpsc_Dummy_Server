@@ -5,12 +5,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class UserMaster implements Serializable{
@@ -29,6 +32,8 @@ public class UserMaster implements Serializable{
 	private String firstname;
 	private String middlename;
 	private String lastname;
+	private String profileImage;
+	private String signature;
 	private String dob;
 	private String fname;
 	private String mname;
@@ -62,6 +67,11 @@ public class UserMaster implements Serializable{
 	private String OtherDoc;
 	@OneToMany(mappedBy = "userMaster")
     private List<QualificationType> qualificationType;
+	
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "qualificationId")
+	private QualificationDoc qualificationDoc;
 
 
 	public Long getSlno() {
@@ -366,6 +376,30 @@ public class UserMaster implements Serializable{
 
 	public void setOtherDoc(String otherDoc) {
 		OtherDoc = otherDoc;
+	}
+
+	public QualificationDoc getQualificationDoc() {
+		return qualificationDoc;
+	}
+
+	public void setQualificationDoc(QualificationDoc qualificationDoc) {
+		this.qualificationDoc = qualificationDoc;
+	}
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
 	}
 
 	
