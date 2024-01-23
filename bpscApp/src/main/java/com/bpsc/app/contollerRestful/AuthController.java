@@ -43,24 +43,27 @@ public class AuthController {
 
 	@PostMapping("registration")
 	public ResponseEntity<?> saveaccountreport(@ModelAttribute Users registration) {
+	    String email = registration.getEmailID();
+	    Users user = userService.getUserByEmail(email);
 
-		String email = registration.getEmailID();
-		Users user = userService.getUserByEmail(email);
-		if (user == null) {
-			String hashedPassword = passwordEncoder.encode(registration.getPassword());
-			registration.setPassword(hashedPassword);
-			Users saveUser = userService.saveUserRegistration(registration);
-			if(saveUser != null) {
-				return ResponseEntity.status(201).body("User Saved Successfully");
-			}
-		}else {
-			return ResponseEntity.status(409).body("User Already Exists");
-		}
+	    if (user == null) {
+	        // Check if password is not null before encoding
+	       
+	            String hashedPassword = passwordEncoder.encode(registration.getPassword());
+	            registration.setPassword(hashedPassword);
+	            Users saveUser = userService.saveUserRegistration(registration);
 
-		
-		return ResponseEntity.status(400).body("Error while saving data");
+	            if (saveUser != null) {
+	                return ResponseEntity.status(201).body("User Saved Successfully");
+	            }
+	        } else {
+	            return ResponseEntity.status(409).body("Already Register");
+	        }
+	    
 
+	    return ResponseEntity.status(400).body("Error while saving data");
 	}
+
 
 	@PostMapping("login")
 	public ResponseEntity<?> login(@RequestBody Users login) {
