@@ -31,10 +31,9 @@ public class QualificationDocServiceImpl implements QualificationDocService{
     	
         	
     	try {
-            String fileName = fileService.uploadFile(pdf, userName, documentType);
-
             QualificationDoc qualificationDoc = qfdr.findByUserName(userName);
             QualificationDoc savedDoc;
+            String fileName = fileService.uploadFile(pdf, userName, documentType);
             switch (documentType) {
                 case "tenthDoc":
                     qualificationDoc.setTenthDoc(fileName);
@@ -58,7 +57,7 @@ public class QualificationDocServiceImpl implements QualificationDocService{
                     break;
                 default:
                     // Handle unexpected document type
-                    throw new IllegalArgumentException("Invalid document type: " + documentType);
+                    return null;
             }
 
              

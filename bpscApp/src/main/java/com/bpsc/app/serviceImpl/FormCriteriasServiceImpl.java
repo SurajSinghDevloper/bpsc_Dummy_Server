@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.bpsc.app.model.FormCriterias;
 import com.bpsc.app.model.Vacany;
 import com.bpsc.app.repository.FormCriteriasRepo;
+import com.bpsc.app.repository.VacanyRepo;
 import com.bpsc.app.service.FormCriteriasService;
 
 
@@ -14,6 +15,8 @@ public class FormCriteriasServiceImpl implements FormCriteriasService{
 	
 	@Autowired
 	FormCriteriasRepo fcr;
+	@Autowired
+	VacanyRepo vcr;
 
 	@Override
 	public FormCriterias saveFormCriteria(FormCriterias fc, String advNo) {
@@ -30,13 +33,15 @@ public class FormCriteriasServiceImpl implements FormCriteriasService{
 	            existingCriteria.setIsDone("D");
 	            
 	            return fcr.save(existingCriteria);
-	        }else {
-	        	return null;
+	        }else if(existingCriteria ==null){
+	        	Vacany existingVacancy = vcr.findByAdvertismentNumber(advNo);
+	        	fc.setVacancy(existingVacancy);
+	        	return fcr.save(fc);
 	        }
 	    }
 
 	   
-	    return fcr.save(fc);
+	    return null;
 	}
 
 	

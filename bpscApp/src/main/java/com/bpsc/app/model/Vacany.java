@@ -133,9 +133,7 @@ public class Vacany  implements Serializable{
 	}
 	public void setCriteria(FormCriterias criteria) {
 		this.criteria = criteria;
-        if (criteria != null) {
-            criteria.setVacancy(this);
-        }
+        
 	}
 	
 	
