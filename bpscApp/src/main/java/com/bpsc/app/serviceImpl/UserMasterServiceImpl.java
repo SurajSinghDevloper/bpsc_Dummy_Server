@@ -40,7 +40,7 @@ public class UserMasterServiceImpl implements UserMasterService {
 			existingUserDetails.setNationality(user.getNationality());
 			existingUserDetails.setMaritialStatus(user.getMaritialStatus());
 			existingUserDetails.setMobile(user.getMobile());
-			existingUserDetails.setAadharNo(user.getAadharNo());
+			existingUserDetails.setAadharNo(user.getAadharNo().replace(",", ""));
 			existingUserDetails.setState(user.getState());
 			existingUserDetails.setDistrict(user.getDistrict());
 			existingUserDetails.setPincode(user.getPincode());
@@ -97,35 +97,35 @@ public class UserMasterServiceImpl implements UserMasterService {
 			UserMaster userDoc = userMasterRepo.findByUsername(userName);
 			UserMaster saveDoc;
 			switch (documentType) {
-			case "Photo Of Candidate":
+			case "profileImage":
 				userDoc.setProfileImage(fileName);
 				saveDoc = userMasterRepo.save(userDoc);
 				break;
-			case "Signature Of Candidate":
+			case "signatureImage":
 				userDoc.setSignature(fileName);
 				saveDoc = userMasterRepo.save(userDoc);
 				break;
-			case "Aadhar Card":
+			case "aadharDoc":
 				userDoc.setAadharDoc(fileName);
 				saveDoc = userMasterRepo.save(userDoc);
 				break;
-			case "Domicile Certificate":
+			case "domicileDoc":
 				userDoc.setDomicileDoc(fileName);
 				saveDoc = userMasterRepo.save(userDoc);
 				break;
-			case "Income Certificate":
+			case "incomeProfDoc":
 				userDoc.setIncomeProfDoc(fileName);
 				saveDoc = userMasterRepo.save(userDoc);
 				break;
-			case "Cast Certificate":
+			case "castProfDoc":
 				userDoc.setCastProfDoc(fileName);
 				saveDoc = userMasterRepo.save(userDoc);
 				break;
-			case "Birt Certificate":
+			case "birthDoc":
 				userDoc.setBirthDoc(fileName);
 				saveDoc = userMasterRepo.save(userDoc);
 				break;
-			case "Other Relivant Doc":
+			case "otherDoc":
 				userDoc.setOtherDoc(fileName);
 				saveDoc = userMasterRepo.save(userDoc);
 				break;
@@ -152,26 +152,29 @@ public class UserMasterServiceImpl implements UserMasterService {
 	           fileService.deleteFile(filename);
 
 	            switch (documentType) {
-	                case "Photo Of Candidate":
+	                case "profileImage":
 	                	userMaster.setProfileImage("");
 	                    break;
-	                case "Signature Of Candidate":
+	                case "signatureImage":
 	                	userMaster.setSignature("");
 	                    break;
-	                case "Aadhar Card":
+	                case "aadharDoc":
 	                	userMaster.setAadharDoc("");
 	                    break;
-	                case "Domicile Certificate":
+	                case "domicileDoc":
 	                	userMaster.setDomicileDoc("");
 	                    break;
-	                case "Cast Certificate":
+	                case "incomeProfDoc":
+	                	userMaster.setIncomeProfDoc("");
+	                    break;
+	                case "castProfDoc":
 	                	userMaster.setCastProfDoc("");
 	                    break;
-	                case "Birt Certificate":
+	                case "birthDoc":
 	                	userMaster.setBirthDoc("");
 	                    break;
 	              
-	                case "Other Relivant Doc":
+	                case "otherDoc":
 	                	userMaster.setOtherDoc("");
 	                    break;
 	                default:

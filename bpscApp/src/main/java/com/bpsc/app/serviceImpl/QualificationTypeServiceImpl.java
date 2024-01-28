@@ -72,7 +72,12 @@ public class QualificationTypeServiceImpl implements QualificationTypeService {
 				doc.setQualificationType(qualificationType);
 				doc.setUserMaster(userMaster);
 				doc.setUserName(username);
-				qdr.save(doc);
+				QualificationDoc savedDoc = qdr.save(doc);
+				if(savedDoc !=null) {
+					UserMaster user = umr.findByUsername(username);
+					user.setQualificationDoc(savedDoc);
+					umr.save(user);
+				}
 				
 			}
 			return "SAVED";

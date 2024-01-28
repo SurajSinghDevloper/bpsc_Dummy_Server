@@ -71,7 +71,7 @@ public class VacanyController {
 	 @GetMapping("/found-criteria")
 		public ResponseEntity<?> exixtingCriteria(
 		        @RequestParam("username") String username){
-			FormCriterias foundCriteria = fcs.getByAdvNo(username);
+			FormCriterias foundCriteria = fcs.getByUserName(username);
 			if(foundCriteria != null) {
 				return ResponseEntity.ok(foundCriteria);
 			}
@@ -97,12 +97,20 @@ public class VacanyController {
 	 
 	 
 	 @PostMapping("/save-applied-details")
-	    public ResponseEntity<AppliedForVacancy> saveAppliedForVacancy(@ModelAttribute AppliedForVacancy afv) {
-	        AppliedForVacancy newAfv = afvs.saveAppliedForVacany(afv);
-	        return newAfv != null
-	                ? new ResponseEntity<>(newAfv, HttpStatus.CREATED)
-	                : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+	 public ResponseEntity<AppliedForVacancy> saveAppliedForVacancy(@ModelAttribute AppliedForVacancy afv) {
+	     String result = afvs.saveAppliedForVacany(afv);
+	     switch (result) {
+	         case "SAVE":
+	             return new ResponseEntity<>(afv, HttpStatus.CREATED);
+	         case "WENT_WRONG":
+	             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	         case "EXISTS":
+	             return new ResponseEntity<>(HttpStatus.CONFLICT); // Conflict if already exists
+	         default:
+	             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	     }
+	 }
+
 
 	    @GetMapping("/getAll/{username}")
 	    public ResponseEntity<List<AppliedForVacancy>> getAllApplied(@PathVariable String username) {

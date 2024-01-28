@@ -12,4 +12,9 @@ import com.bpsc.app.model.AppliedForVacancy;
 public interface AppliedForVacancyRepo extends JpaRepository<AppliedForVacancy, Long>{
 	@Query("SELECT v FROM AppliedForVacancy v WHERE v.userName = :userName")
 	public List<AppliedForVacancy> findByUsername(@Param("userName") String userName);
+	
+	@Query("SELECT v FROM AppliedForVacancy v WHERE v.advertismentNumber = :advertismentNumber")
+	public AppliedForVacancy findByAdvNo(@Param("advertismentNumber")String advertismentNumber);
+	
+	
 }

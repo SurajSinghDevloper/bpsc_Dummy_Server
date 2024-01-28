@@ -16,12 +16,17 @@ public class AppliedForVacancyServiceImpl implements AppliedForVacancyService{
 	AppliedForVacancyRepo afvr;
 	
 	@Override
-	public AppliedForVacancy saveAppliedForVacany(AppliedForVacancy afv) {
-		AppliedForVacancy newAfv = afvr.save(afv);
-		if(newAfv !=null) {
-			return newAfv;
+	public String saveAppliedForVacany(AppliedForVacancy afv) {
+		AppliedForVacancy isAlredayExits = afvr.findByAdvNo(afv.getAdvertismentNumber());
+		if(isAlredayExits ==null) {
+			AppliedForVacancy newAfv = afvr.save(afv);
+			if(newAfv !=null) {
+				return "SAVE";
+			}else {
+				return "WENT_WRONG";
+			}
 		}
-		return null;
+			return "EXISTS";
 	}
 	
 	@Override

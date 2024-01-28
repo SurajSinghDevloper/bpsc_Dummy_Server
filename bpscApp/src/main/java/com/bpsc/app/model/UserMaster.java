@@ -42,6 +42,7 @@ public class UserMaster implements Serializable{
 	private String nationality;
 	private String maritialStatus;
 	private String mobile;
+	
 	private String aadharNo;
 	private String state;
 	private String district;
@@ -186,6 +187,8 @@ public class UserMaster implements Serializable{
 		this.mobile = mobile;
 	}
 
+	
+	
 	public String getAadharNo() {
 		return aadharNo;
 	}
@@ -329,7 +332,7 @@ public class UserMaster implements Serializable{
 	public void setQualificationType(List<QualificationType> qualificationType) {
 		this.qualificationType = qualificationType;
 	}
-
+	
 	public String getAadharDoc() {
 		return aadharDoc;
 	}

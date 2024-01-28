@@ -46,7 +46,7 @@ public class FormCriteriasServiceImpl implements FormCriteriasService{
 
 	
 	@Override
-	public FormCriterias getByAdvNo( String userName) {
+	public FormCriterias getByUserName( String userName) {
 		FormCriterias existingCriteria = fcr.findByUsername(userName);
 	
 		if(existingCriteria !=null) {
